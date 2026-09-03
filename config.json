@@ -1,0 +1,10 @@
+{
+    "$schema": "./config.schema.json",
+    "port": 993,
+    "ssl": true,
+    "certchain": "/etc/letsencrypt/live/example.com/fullchain.pem",
+    "certkey": "/etc/letsencrypt/live/example.com/privkey.pem",
+    "password_sha512": "3bb12eda3c298db5de25597f54d924f2e17e78a26ad8953ed8218ee682f0bbbe9021e2f3009d152c911bf1f25ec683a902714166767afbd8e5bd0fb0124ecb8a",
+    "fake_smtp": true,
+    "fake_smtp_port": 587
+}

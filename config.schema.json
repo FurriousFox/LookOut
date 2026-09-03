@@ -1,0 +1,102 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Server configuration",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "description": "Optional editor-only reference to this schema."
+        },
+        "port": {
+            "type": "number",
+            "description": "Port on which the server listens."
+        },
+        "ssl": {
+            "type": "boolean",
+            "description": "Whether SSL is enabled."
+        },
+        "certchain": {
+            "type": "string",
+            "description": "Optional path to the TLS certificate-chain file."
+        },
+        "certkey": {
+            "type": "string",
+            "description": "Path to the TLS private-key file."
+        },
+        "password_sha512": {
+            "type": "string",
+            "description": "Password represented as a SHA-512 hash."
+        },
+        "fake_smtp": {
+            "type": "boolean",
+            "description": "Whether to use the fake SMTP server."
+        },
+        "fake_smtp_port": {
+            "type": "number",
+            "description": "Port for the fake SMTP server."
+        }
+    },
+    "required": [
+        "port",
+        "ssl",
+        "password_sha512",
+        "fake_smtp"
+    ],
+    "allOf": [
+        {
+            "oneOf": [
+                {
+                    "title": "SSL disabled",
+                    "properties": {
+                        "ssl": {
+                            "const": false
+                        }
+                    },
+                    "required": [
+                        "ssl"
+                    ]
+                },
+                {
+                    "title": "SSL enabled",
+                    "properties": {
+                        "ssl": {
+                            "const": true
+                        }
+                    },
+                    "required": [
+                        "ssl",
+                        "certkey"
+                    ]
+                }
+            ]
+        },
+        {
+            "oneOf": [
+                {
+                    "title": "Fake SMTP disabled",
+                    "properties": {
+                        "fake_smtp": {
+                            "const": false
+                        }
+                    },
+                    "required": [
+                        "fake_smtp"
+                    ]
+                },
+                {
+                    "title": "Fake SMTP enabled",
+                    "properties": {
+                        "fake_smtp": {
+                            "const": true
+                        }
+                    },
+                    "required": [
+                        "fake_smtp",
+                        "fake_smtp_port"
+                    ]
+                }
+            ]
+        }
+    ],
+    "unevaluatedProperties": false
+}
